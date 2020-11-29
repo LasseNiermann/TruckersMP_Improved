@@ -196,6 +196,7 @@
     {
       "matches": [
         "https://truckersmp.com/appeals/adminindex*",
+        "https://truckersmp.com/appeals/pmindex*",
         "*://truckersmp.network/appeals/adminindex*"
       ],
       "css": [
@@ -338,6 +339,23 @@
         "vendor/js/datetime-moment.js",
         "src/entryPoint.js",
         "src/inject/ban-latest/inject.js"
+      ]
+    },
+
+    {
+      "matches": [
+        "https://truckersmp.com/admin/team/activity/feedback*"
+      ],
+      "css": [
+        "vendor/css/datatables.min.css",
+        "src/inject/feedback-activity/inject.css"
+      ],
+      "js": [
+        "vendor/js/jquery.min.js",
+        "vendor/js/bootstrap.min.js",
+        "vendor/js/dataTables.min.js",
+        "src/entryPoint.js",
+        "src/inject/feedback-activity/inject.js"
       ]
     }
   ]
