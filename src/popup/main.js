@@ -19,3 +19,10 @@ optionsLink.addEventListener('click', function (e) {
 
   window.open(chrome.runtime.getURL('src/options/index.html'));
 })
+
+var changelogLink = document.getElementById('go_to_changelog')
+changelogLink.addEventListener('click', function (e) {
+  e.preventDefault()
+
+  window.open(chrome.runtime.getURL('src/options/new_version.html'));
+})

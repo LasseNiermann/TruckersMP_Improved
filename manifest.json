@@ -1,6 +1,6 @@
 ﻿{
   "name": "TruckersMP Improved",
-  "version": "1.15.10",
+  "version": "1.16.5",
   "manifest_version": 2,
   "description": "Useful functions for TruckersMP Staff. This extension is for helping TruckersMP Staff to be more productive",
   "icons": {
@@ -9,7 +9,7 @@
     "128": "icons/icon128.png"
   },
 
-  "minimum_chrome_version": "42",
+  "minimum_chrome_version": "85",
 
   "permissions": [
     "https://*.truckersmp.com/*",
@@ -35,7 +35,8 @@
   },
   "web_accessible_resources": [
     "src/options/*",
-    "icons/*"
+    "icons/*",
+    "src/editor.js"
   ],
 
   "browser_action": {
@@ -70,7 +71,6 @@
         "src/inject/steam/inject.js"
       ]
     },
-
 
     {
       "matches": [
@@ -117,6 +117,7 @@
         "vendor/js/youtubepopup.js",
         "vendor/js/bootstrap.min.js",
         "vendor/js/moment-with-locales.min.js",
+        "vendor/js/moment-timezone-with-data-10-year-range.min.js",
         "vendor/js/clipboard.min.js",
         "vendor/js/underscore-min.js",
         "src/entryPoint.js",
@@ -167,6 +168,7 @@
         "vendor/js/jquery.min.js",
         "vendor/js/bootstrap.min.js",
         "vendor/js/moment-with-locales.min.js",
+        "vendor/js/moment-timezone-with-data-10-year-range.min.js",
         "src/entryPoint.js",
         "src/inject/ban-edit/inject.js"
       ]
@@ -185,6 +187,7 @@
         "vendor/js/bootstrap.min.js",
         "vendor/js/youtubepopup.js",
         "vendor/js/moment-with-locales.min.js",
+        "vendor/js/moment-timezone-with-data-10-year-range.min.js",
         "src/entryPoint.js",
         "src/inject/appeals/inject.js"
       ]
@@ -229,6 +232,8 @@
       ],
       "js": [
         "vendor/js/jquery.min.js",
+        "vendor/js/moment-with-locales.min.js",
+        "vendor/js/moment-timezone-with-data-10-year-range.min.js",
         "src/entryPoint.js",
         "src/inject/user/inject.js"
       ]
@@ -276,10 +281,63 @@
         "vendor/js/youtubepopup.js",
         "vendor/js/bootstrap.min.js",
         "vendor/js/moment-with-locales.min.js",
+        "vendor/js/moment-timezone-with-data-10-year-range.min.js",
         "vendor/js/clipboard.min.js",
         "vendor/js/underscore-min.js",
         "src/entryPoint.js",
         "src/inject/feedback/inject.js"
+      ]
+    },
+
+    {
+      "matches": [
+        "https://truckersmp.com/admin/team/activity/bans*"
+      ],
+      "css": [
+        "vendor/css/datatables.min.css",
+        "src/inject/ban-activity/inject.css"
+      ],
+      "js": [
+        "vendor/js/jquery.min.js",
+        "vendor/js/bootstrap.min.js",
+        "vendor/js/dataTables.min.js",
+        "src/entryPoint.js",
+        "src/inject/ban-activity/inject.js"
+      ]
+    }, 
+
+    {
+      "matches": [
+        "https://truckersmp.com/admin/ban/search*"
+      ],
+      "js": [
+        "vendor/js/jquery.min.js",
+        "vendor/js/bootstrap.min.js",
+        "vendor/js/dataTables.min.js",
+        "vendor/js/moment-with-locales.min.js",
+        "vendor/js/moment-timezone-with-data-10-year-range.min.js",
+        "vendor/js/datetime-moment.js",
+        "src/entryPoint.js",
+        "src/inject/ban-search/inject.js"
+      ]
+    },
+
+    {
+      "matches": [
+        "https://truckersmp.com/admin/ban*"
+      ],
+      "exclude_matches": [
+        "https://truckersmp.com/admin/ban/search*"
+      ],
+      "js": [
+        "vendor/js/jquery.min.js",
+        "vendor/js/bootstrap.min.js",
+        "vendor/js/dataTables.min.js",
+        "vendor/js/moment-with-locales.min.js",
+        "vendor/js/moment-timezone-with-data-10-year-range.min.js",
+        "vendor/js/datetime-moment.js",
+        "src/entryPoint.js",
+        "src/inject/ban-latest/inject.js"
       ]
     }
   ]

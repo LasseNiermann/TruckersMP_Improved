@@ -62,7 +62,7 @@ let inject_init = () => { // eslint-disable-line no-unused-vars
   };
 
   let injectCheckBanButtonToUserPage = () => {
-    $(".profile-body .panel-profile:nth-child(4) .panel-heading.overflow-h").append(`<a href="" class="btn btn-primary btn-sm truckersmp-ban-helper check-ban" onclick="event.preventDefault()" data-toggle="modal" data-target="#banStats">Next ban</a>`);
+    $(".profile-body").find(".fa-graduation-cap").first().parent().parent().append(`<a href="" class="btn btn-primary btn-sm truckersmp-ban-helper check-ban" onclick="event.preventDefault()" data-toggle="modal" data-target="#banStats">Next ban</a>`);
     injectUserModal()
       .then(registerCheckBanEvents());
   };
@@ -82,5 +82,22 @@ let inject_init = () => { // eslint-disable-line no-unused-vars
     });
   };
 
+  let displayBanLength = () => {
+    let bans = $('body').find(".panel-profile .fa-graduation-cap").first().parent().parent().parent().find('.timeline-v2 > li')
+    $.each(bans, function (index, ban) {
+      let startStr = $(ban).find('time').first().attr('datetime'), 
+      endStr = $(ban).find('div > div > p:nth-child(2)').text().replace($(ban).find('div > div > p:nth-child(2) > strong').text(), "").trim()
+      if (endStr) {
+        let start = moment(startStr), end = moment(Date.parse(fixDate(endStr)))
+        let length = moment.duration(end.diff(start))
+        let roundedLength = Math.round(length.asDays())
+        let lengthStr = "" + roundedLength + (roundedLength === 1 ? " day" : " days")
+
+        $(ban).find('div > div > p:nth-child(2)').append('<strong>(' + lengthStr + ')</strong>')
+      }
+    })
+  }
+
+  displayBanLength()
   injectCheckBanButtonToUserPage();
 };

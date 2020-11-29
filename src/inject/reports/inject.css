@@ -31,3 +31,7 @@ hr.small {
   text-align: right;
   margin-bottom: 10px;
 }
+
+h4.modal-title {
+  display: inline;
+}

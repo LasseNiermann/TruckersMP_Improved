@@ -1,0 +1,7 @@
+.dataTables_filter {
+    text-align: right;
+}
+
+table.dataTable.table-condensed > thead > tr > th {
+    padding-right: 7px;
+}

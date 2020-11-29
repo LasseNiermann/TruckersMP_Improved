@@ -167,6 +167,15 @@
                 </li>
 
                 <li class="list-group-item">
+                  Coloured status
+                  <small class="text-muted">Replace status text with a coloured badge in reports and feedbacks</small>
+                  <div class="material-switch pull-left">
+                    <input id="colouredstatus" name="wide" type="checkbox">
+                    <label for="colouredstatus" class="label-primary"></label>
+                  </div>
+                </li>
+
+                <li class="list-group-item">
                   Auto-insert separator
                   <small class="text-muted">In accept-report modal and manual ban page</small>
                   <div class="material-switch pull-left">
@@ -272,7 +281,7 @@
                       <button class="create-section btn btn-success">Create section</button>
                     </label>
                     <div class="col-lg-10">
-                      <div id="prefixes"></div>
+                      <div id="prefixes" data-columns="1"></div>
                     </div>
                   </div>
 
@@ -285,7 +294,7 @@
                       <button class="create-section btn btn-success">Create section</button>
                     </label>
                     <div class="col-lg-10">
-                      <div id="reasons"></div>
+                      <div id="reasons" data-columns="1"></div>
                     </div>
                   </div>
 
@@ -298,7 +307,20 @@
                       <button class="create-section btn btn-success">Create section</button>
                     </label>
                     <div class="col-lg-10">
-                      <div id="postfixes"></div>
+                      <div id="postfixes" data-columns="1"></div>
+                    </div>
+                  </div>
+
+                  <hr>
+
+                  <div class="form-group">
+                    <label class="col-lg-2 control-label">
+                      <strong>Report accepts:</strong>
+                      <br />
+                      <button class="create-section btn btn-success">Create section</button>
+                    </label>
+                    <div class="col-lg-10">
+                      <div id="accepts" data-columns="2"></div>
                     </div>
                   </div>
 
@@ -311,7 +333,7 @@
                       <button class="create-section btn btn-success">Create section</button>
                     </label>
                     <div class="col-lg-10">
-                      <div id="declines"></div>
+                      <div id="declines" data-columns="2"></div>
                     </div>
                   </div>
 
@@ -324,7 +346,7 @@
                       <button class="create-section btn btn-success">Create section</button>
                     </label>
                     <div class="col-lg-10">
-                      <div id="declinesPositive"></div>
+                      <div id="declinesPositive" data-columns="2"></div>
                     </div>
                   </div>
 
@@ -337,7 +359,7 @@
                       <button class="create-section btn btn-success">Create section</button>
                     </label>
                     <div class="col-lg-10">
-                      <div id="declinesNegative"></div>
+                      <div id="declinesNegative" data-columns="2"></div>
                     </div>
                   </div>
 
@@ -350,7 +372,20 @@
                       <button class="create-section btn btn-success">Create section</button>
                     </label>
                     <div class="col-lg-10">
-                      <div id="comments"></div>
+                      <div id="comments" data-columns="2"></div>
+                    </div>
+                  </div>
+
+                  <hr>
+
+                  <div class="form-group">
+                    <label class="col-lg-2 control-label">
+                      <strong>Reports (all):</strong>
+                      <br />
+                      <button class="create-section btn btn-success">Create section</button>
+                    </label>
+                    <div class="col-lg-10">
+                      <div id="reportsall" data-columns="2"></div>
                     </div>
                   </div>
 
@@ -363,7 +398,7 @@
                       <button class="create-section btn btn-success">Create section</button>
                     </label>
                     <div class="col-lg-10">
-                      <div id="acceptsAppeals"></div>
+                      <div id="acceptsAppeals" data-columns="2"></div>
                     </div>
                   </div>
 
@@ -376,7 +411,7 @@
                       <button class="create-section btn btn-success">Create section</button>
                     </label>
                     <div class="col-lg-10">
-                      <div id="declinesAppeals"></div>
+                      <div id="declinesAppeals" data-columns="2"></div>
                     </div>
                   </div>
 
@@ -389,7 +424,7 @@
                       <button class="create-section btn btn-success">Create section</button>
                     </label>
                     <div class="col-lg-10">
-                      <div id="modifyAppeals"></div>
+                      <div id="modifyAppeals" data-columns="2"></div>
                     </div>
                   </div>
 
@@ -402,7 +437,20 @@
                       <button class="create-section btn btn-success">Create section</button>
                     </label>
                     <div class="col-lg-10">
-                      <div id="commentsAppeals"></div>
+                      <div id="commentsAppeals" data-columns="2"></div>
+                    </div>
+                  </div>
+
+                  <hr>
+
+                  <div class="form-group">
+                    <label class="col-lg-2 control-label">
+                      <strong>Appeals (all):</strong>
+                      <br />
+                      <button class="create-section btn btn-success">Create section</button>
+                    </label>
+                    <div class="col-lg-10">
+                      <div id="appealsall" data-columns="2"></div>
                     </div>
                   </div>
 
@@ -415,7 +463,20 @@
                       <button class='create-section btn btn-success'>Create section</button>
                     </label>
                     <div class="col-lg-10">
-                      <div id="feedbackComments"></div>
+                      <div id="feedbackComments" data-columns="2"></div>
+                    </div>
+                  </div>
+
+                  <hr>
+
+                  <div class="form-group">
+                    <label class="col-lg-2 control-label">
+                      <strong>Global Comments:</strong>
+                      <br/>
+                      <button class='create-section btn btn-success'>Create section</button>
+                    </label>
+                    <div class="col-lg-10">
+                      <div id="all" data-columns="2"></div>
                     </div>
                   </div>
                 </fieldset>

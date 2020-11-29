@@ -1,0 +1,32 @@
+{
+  "addons": {
+    "{fbb7bd19-f75a-410a-8d6f-4d9c69e3ce39}": {
+      "updates": [
+        {
+          "version": "1.16",
+          "update_link": "https://github.com/Flybel/TruckersMP_Improved/releases/download/v1.16/truckersmp_improved-1.16-fx.xpi"
+        },
+        {
+          "version": "1.16.1",
+          "update_link": "https://github.com/Flybel/TruckersMP_Improved/releases/download/v1.16.1/truckersmp_improved-1.16.1-fx.xpi"
+        },
+        {
+          "version": "1.16.2",
+          "update_link": "https://github.com/Flybel/TruckersMP_Improved/releases/download/v1.16.2/truckersmp_improved-1.16.2-fx.xpi"
+        },
+        {
+          "version": "1.16.3",
+          "update_link": "https://github.com/Flybel/TruckersMP_Improved/releases/download/v1.16.3/truckersmp_improved-1.16.3-fx.xpi"
+        },
+        {
+          "version": "1.16.4.1",
+          "update_link": "https://github.com/Flybel/TruckersMP_Improved/releases/download/v1.16.4/truckersmp_improved-1.16.4.1-fx.xpi"
+        },
+        {
+          "version": "1.16.5",
+          "update_link": "https://github.com/Flybel/TruckersMP_Improved/releases/download/v1.16.5/truckersmp_improved-1.16.5-fx.xpi"
+        }
+      ]
+    }
+  }
+}

@@ -14,34 +14,33 @@ var default_OwnReasons = {
     ["Intentional"]
   ],
   reasons: [
-    ["Ramming", "Blocking", "Incorrect Way", "Insulting Users", "Insulting Administration"],
-    ["Change your TruckersMP name and make a ban appeal"],
-    ["Horn Spamming", "Inappropriate License/Interior Plates", "Impressionating Administration", "Racing", "Inappropriate Overtaking", "Profanity", "Chat Spamming", "Hacking", "Speedhacking", "Bug Abusing", "Inappropriate Parking", "Unsupported Mods", "Ban Evading", "Driving w/o lights", "Exiting Map Boundaries", "Inappropriate Convoy Management", "Bullying/Harrassment", "Trolling", "CB Abuse", "Car w/ trailer", "Excessive Save Editing", "Reckless Driving"]
+    ["Ramming", "Blocking", "Incorrect Way", "Inappropriate Overtaking", "Reckless Driving", "Insulting", "Hacking"],
+    ["Ban Evading", "Spamming chat", "CB Abuse", "Impersonating staff", "Sharing unsafe content"],
+    ["Change your Ingame Tag and appeal", "Change your License Plate and appeal", "Excessive Save Editing"]
   ],
   postfixes: [
-    ["// 1 m due to history", "// 3 m due to history"],
-    ["// Perma due to history"]
+    ["// 1 month due to history", "// Permanent due to history"],
+    ["Permanent per GMM (§2.9)", "Permanent per §2.1", "Permanent per §1.2"]
   ],
+  accepts: [{}],
   declines: [{
-    "Only a kickable offence": "Only a kickable offence",
-    "Wrong ID": "Wrong ID",
-    "Already banned for this evidence": "Already banned for this evidence"
+    "BanEvading no match": "Unfortunately, we were unable to unambiguously determine whether the reported player is really ban evading. In order to prevent false punishments, I will not take action.",
+    "Double report": "You have created multiple identical reports by accident. I will decline this report, the first report will be dealt with as usual."
   }],
   declinesNegative: [{
-    "Insufficient Evidence": "Insufficient Evidence",
-    "No evidence": "No evidence",
-    "No offence": "No offence"
+    "No evidence": "Unfortunately, the evidence you linked seems to be unavailable. Without any evidence I cannot take action. Please feel free to create another report with working evidence.",
+    "Only screenshot": "The offence you reported requires a video as evidence in order for us to be able to take any action. You can use software like OBS or NVIDIA Share to record your gameplay. See the forums for more information."
   }],
   declinesPositive: [{
-    "Proof added to existing ban": "Proof added to existing ban"
+    "Already banned for situation": "The player you reported has already been reported for the situation from your evidence. The ban has however run out by now and they will not be banned again."
   }],
   comments: [{
-    "Passed to the right admin": "Passed to the right admin"
+    "BanEvading lookup": "Link to lookup: []()"
   }],
+  reportsall: [{}],
   declinesAppeals: [{}],
   acceptsAppeals: [{
-    "@BANBYMISTAKE": "The ban will be marked with \"@BANBYMISTAKE\" and will be removed",
-    "Be careful in the future": "This time I will give you a chance, however be careful in the future!"
+    "@BANBYMISTAKE": "The ban will be marked with \"@BANBYMISTAKE\" and will be removed"
   }],
   commentsAppeals: [{
     "Change your tag": "Change your tag and prove with a screenshot that it was changed"
@@ -50,16 +49,35 @@ var default_OwnReasons = {
     "Ban decreased": "Due to the lack of violations in your history I shorten your ban period. However be careful in the future and follow the rules of MP.",
     "Ban increased": "Due to newly emerged circumstances the period of the ban increased."
   }],
+  appealsall: [{}],
   feedbackComments: [{
-    "Closing feedback un user's request.": "Closing feedback un user's request."
-  }]
+    "Closing feedback on user's request.": "Closing feedback on user's request."
+  }],
+  all: [{}]
 };
 
 var default_OwnDates = {
-  white: "3,h,+3 hrs; 1,d,+1 day; 3,d",
-  yellow: "1,w,+1 week",
-  red: "1,M,+1 month; 3,M",
+  white: "1,d,+1 day; 2,d,+2 days; 3,d,+3 days",
+  yellow: "1,w,+1 week; 2,w,+2 weeks",
+  red: "1,M,+1 month; 30,d,+30 days",
   other: "current_utc"
+};
+
+var default_settings = {
+  local_storage: true,
+  img_previews: true,
+  wide: true,
+  colouredstatus: true,
+  autoinsertsep: true,
+  localisedcomment: true,
+  enablelinknotifications: true,
+  viewappealblank: true,
+  viewreportblank: true,
+  enablebanlength: true,
+  defaultratings: false,
+  enablefeedbackimprovement: true,
+  viewfeedbackblank: true,
+  separator: ','
 };
 
 function checkDoubleSlash(input) { // eslint-disable-line no-unused-vars
@@ -141,7 +159,7 @@ function insertAtCaret(input, text, firstSpace) { // eslint-disable-line no-unus
   }
 }
 
-$('body > div.wrapper > div.breadcrumbs > div > h1').append(' <span class="badge" data-toggle="tooltip" title="by @cjmaxik">' + version + '</span> <a href="#" id="go_to_options"><i class="fas fa-cog data-toggle="tooltip" title="Script settings"></i></a> <a href="#" id="version_detected"><i class="fas fa-question data-toggle="tooltip" title="Changelog"></i></a>  <i class="fas fa-spinner fa-spin" id="loading-spinner" data-toggle="tooltip" title="Loading...">');
+$('body > div.wrapper > div.breadcrumbs > div > h1').append(' <span class="badge" data-toggle="tooltip" title="TruckersMP Improved">' + version + '</span> <a href="#" id="go_to_options"><i class="fas fa-cog data-toggle="tooltip" title="Script settings"></i></a> <a href="#" id="version_detected"><i class="fas fa-question data-toggle="tooltip" title="Changelog"></i></a>  <i class="fas fa-spinner fa-spin" id="loading-spinner" data-toggle="tooltip" title="Loading...">');
 
 $(function () {
   $('#go_to_options').on('click', function (event) {
@@ -160,7 +178,7 @@ $(function () {
 });
 
 function parseItems(object) {
-  var toObjects = ["declines", "declinesPositive", "declinesNegative", "comments", "declinesAppeals", "commentsAppeals", "acceptsAppeals", "modifyAppeals", "feedbackComments"];
+  var toObjects = ["accepts", "declines", "declinesPositive", "declinesNegative", "comments", "reportsall", "declinesAppeals", "commentsAppeals", "acceptsAppeals", "modifyAppeals", "appealsall", "feedbackComments", "all"];
   var ret = {};
   $.each(object, function (key, val) {
     if (typeof val == "string") {
@@ -198,23 +216,12 @@ function loadSettings(callBack) {
       OwnReasons: default_OwnReasons,
       OwnDates: default_OwnDates,
       last_version: version,
-      settings: {
-        local_storage: true,
-        img_previews: true,
-        wide: true,
-        autoinsertsep: true,
-        localisedcomment: true,
-        enablelinknotifications: true,
-        viewappealblank: true,
-        viewreportblank: true,
-        enablebanlength: true,
-        defaultratings: false,
-        enablefeedbackimprovement: true,
-        viewfeedbackblank: true,
-        separator: ','
-      },
+      settings: default_settings,
       gitskip: undefined
     }, function (items) {
+      items.OwnReasons = Object.assign(default_OwnReasons, items.OwnReasons); // Firefox applies default values only shallow
+      items.settings = Object.assign(default_settings, items.settings);
+
       items.OwnReasons = parseItems(items.OwnReasons);
       if (syncAllowed && items.settings.local_storage) {
         chrome.storage.local.get(items, function (items) {
@@ -399,10 +406,11 @@ function content_links() { // eslint-disable-line no-unused-vars
           embedlink = `https://clips.twitch.tv/embed?clip=${clipid[1]}&autoplay=false&parent=truckersmp.com`;
         }
       }
-      $(this).append('<a href="' + embedlink + '" class="video">  <i class="fas fa-play-circle fa-fw" data-toggle="tooltip" title="Watch this video in modal"></i></a>');
+      $(this).append('<a href="' + embedlink + '" class="video"><i class="fas fa-play-circle fa-fw" data-toggle="tooltip" title="Watch this video in modal"></i></a>');
     }
 
-    $(this).append(`    <a href="#" class="jmdev_ca" data-link="${sub}"><i class="fas fa-copy fa-fw" data-toggle="tooltip" title="Shorted + to clipboard"></i></a>`);
+    $(this).append(`<a href="#" class="jmdev_ca" data-link="${sub}"><i class="fas fa-copy fa-fw" data-toggle="tooltip" title="Shorted + to clipboard"></i></a>`);
+    $(this).html('<nobr>' + $(this).html() + '</nobr>').removeClass('newlinks');
   });
 
   if (settings.img_previews !== false) {
@@ -416,41 +424,43 @@ function content_links() { // eslint-disable-line no-unused-vars
   }
 
 
-  $('a.jmdev_ca').on('click', function (event) {
-    event.preventDefault();
-    //var spinner = $("#loading-spinner");
-    //spinner.show();
-    var link = String($(this).data("link"));
-    var length = link.length;
+  $('a.jmdev_ca').on('click', jmdevHandler);
+}
 
-    if (length < 30) {
-      copyToClipboard($(this).data("link"));
+function jmdevHandler(event) {
+  event.preventDefault();
+  //var spinner = $("#loading-spinner");
+  //spinner.show();
+  var link = String($(this).data("link"));
+  var length = link.length;
+
+  if (length < 30) {
+    copyToClipboard($(this).data("link"));
+    if (settings.enablelinknotifications) {
+      chrome.runtime.sendMessage({
+        msg: "This URL is short enough. Check your clipboard!",
+        contextMessage: moment().format("YYYY-MM-DD HH:mm:ss"),
+        timeout: 3000
+      });
+    }
+    //spinner.hide();
+  } else {
+    if (link.includes('youtube.com') || link.includes('youtu.be')) {
+      copyToClipboard('https://youtu.be/' + getYouTubeIdFromUrl(link) + checkTimestamps(link));
       if (settings.enablelinknotifications) {
         chrome.runtime.sendMessage({
-          msg: "This URL is short enough. Check your clipboard!",
-          contextMessage: moment().format("YYYY-MM-DD HH:mm:ss"),
-          timeout: 3000
+          msg: "URL just being shorted! Check your clipboard!",
+          contextMessage: moment().format("YYYY-MM-DD HH:mm:ss")
         });
       }
-      //spinner.hide();
     } else {
-      if (link.includes('youtube.com') || link.includes('youtu.be')) {
-        copyToClipboard('https://youtu.be/' + getYouTubeIdFromUrl(link) + checkTimestamps(link));
-        if (settings.enablelinknotifications) {
-          chrome.runtime.sendMessage({
-            msg: "URL just being shorted! Check your clipboard!",
-            contextMessage: moment().format("YYYY-MM-DD HH:mm:ss")
-          });
-        }
-      } else {
-        urlShorter(link);
-      }
+      urlShorter(link);
     }
-    $(this).children().first().removeClass("fa-copy").addClass("fa-check"); //displaying a check mark after copying shortened or not shortened link
-    setTimeout(() => {
-      $(this).children().first().removeClass("fa-check").addClass("fa-copy");
-    },2000);
-  });
+  }
+  $(this).children().first().removeClass("fa-copy").addClass("fa-check"); //displaying a check mark after copying shortened or not shortened link
+  setTimeout(() => {
+    $(this).children().first().removeClass("fa-check").addClass("fa-copy");
+  },2000);
 }
 
 
@@ -552,30 +562,32 @@ function escapeHTML(s) { // eslint-disable-line no-unused-vars
   return s.replace(/&(?!\w+;)/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')
 }
 
+let day = 60 * 60 * 24 * 1000;
+let fixDate = function (date) {
+  let timezone = $('body > div.wrapper > div.header > div.container > div > ul > li:nth-child(3) > a').text().split(':')[1].trim(); //get current timezone setting from page header
+  let months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+
+  let d = moment.tz(timezone);
+  date = date.replace('Today,', d.format("DD MMM") /*d.date() + ' ' + months[d.getMonth()]*/);
+
+  let yesterday = d.clone().subtract(1,'d');
+  date = date.replace('Yesterday,', yesterday.format("DD MMM") /*yesterday.getDate() + ' ' + months[d.getMonth()]*/);
+
+  let tomorrow = d.clone().add(1,'d');
+  date = date.replace('Tomorrow,', tomorrow.format("DD MMM") /*tomorrow.getDate() + ' ' + months[d.getMonth()]*/);
+
+  if (!date.match(/20[0-9]{2}/)) {
+      //date += " " + (new Date()).getFullYear();
+      date = date.trim().substr(0,6) + d.format(" YYYY") + date.trim().substr(6);
+  }
+  let res = moment.tz(date, "DD MMM YYYY HH:mm", timezone);
+  if (res.isValid()) return res.format("DD MMM YYYY HH:mm UTCZZ");
+  else return date;
+};
+
 let checkBans = (removeFirstBan) => { // eslint-disable-line no-unused-vars
-  let day = 60 * 60 * 24 * 1000;
-  let fixDate = function (date) {
-        let months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
-        let d = new Date();
-        date = date.replace('Today,', d.getDate() + ' ' + months[d.getMonth()]);
-
-        let yesterday = new Date(d);
-        yesterday.setTime(d.getTime() - day);
-        date = date.replace('Yesterday,', yesterday.getDay() + ' ' + months[d.getMonth()]);
-
-        let tomorrow = new Date(d);
-        tomorrow.setTime(d.getTime() + day);
-        date = date.replace('Tomorrow,', tomorrow.getDay() + ' ' + months[d.getMonth()]);
-
-        if (!date.match(/20[0-9]{2}/)) {
-            date += " " + (new Date()).getFullYear();
-        }
-
-        return date;
-    };
-
-  let bans = $(document).find('.profile-body .panel-profile:last-child .timeline-v2 > li');
+  let bans = $(document).find(".panel-profile .fa-graduation-cap").first().parent().parent().parent().find('.timeline-v2 > li');
   if (removeFirstBan === true) {
       bans = bans.slice(1);
   }
@@ -600,25 +612,29 @@ let checkBans = (removeFirstBan) => { // eslint-disable-line no-unused-vars
           if (reason === '@BANBYMISTAKE' || $(ban).find('.cbp_tmicon').css('background-color') === "rgb(255, 0, 38)") {
               return;
           }
-          let date = $($(ban).next().find('div.modal-body > div').children()[$(ban).next().find('div.modal-body > div').children().length - 2]).text().split(/:\s/)[0].trim() //$(ban).find('.cbp_tmtime span:last-of-type').text();
+          let date = $(ban).find('time').attr('datetime') //$(ban).find('.cbp_tmtime span:last-of-type').text();
           let issuedOn = Date.parse(fixDate(date));
-          let dateExp = $(ban).find('.autolinkage').next().text().replaceAll(/(\s)+/g," ").replace("Expires ","").trim() //getKeyValueByNameFromBanRows($(ban).find('.cbp_tmlabel > p'), "Expires", ': ')[1];
+          let dateExp = $(ban).find('.autolinkage').next().text().replaceAll(/(\s)+/g," ").trim() //getKeyValueByNameFromBanRows($(ban).find('.cbp_tmlabel > p'), "Expires", ': ')[1];
   
-          if (dateExp === 'Never' || dateExp === 'Permanent') {
+          if (dateExp.includes('Never') || dateExp.includes('Permanent')) {
               dateExp = date;
+          } else {
+            $(ban).find('.autolinkage').next().find('strong').each((i, ent) => {
+              dateExp = dateExp.replace($(ent).text(), "");
+            })
           }
   
           let expires = Date.parse(fixDate(dateExp));
-  
+          console.log(i, ban, "\n", date, fixDate(date), issuedOn, "\n", dateExp, fixDate(dateExp), expires)
           if (expires - issuedOn >= day * 85) {
             banStats.bans3m++
-          } else if (expires - issuedOn >= day * 27) {
+          } else if (expires - issuedOn >= day * 27 && reason.toLowerCase().includes('hist')) {
               banStats.bans1m++;
           }
   
           if ((new Date()).getTime() - day * 365 <= expires) {
               banStats.activeBans++;
-              if (expires - issuedOn >= day * 27) {
+              if (expires - issuedOn >= day * 27 && reason.toLowerCase().includes('hist')) {
                 if (banStats.active1m) banStats.twoActiveHistBans = true;  
                 banStats.active1m = true;
               }
@@ -660,6 +676,14 @@ let getKeyValueByNameFromBanRows = (elements, key, delimiter) => { // eslint-dis
 
   return data;
 };
+
+function injectScript(file_path, tag) {
+  var node = document.getElementsByTagName(tag)[0];
+  var script = document.createElement('script');
+  script.setAttribute('type', 'text/javascript');
+  script.setAttribute('src', file_path);
+  node.appendChild(script);
+}
 
 $("#favicon").attr("href", chrome.extension.getURL("/icons/icon48.png"));
 

@@ -128,7 +128,7 @@ let inject_init = () => { // eslint-disable-line no-unused-vars
     });
   }
 
-  var reasonMax = 190;
+  var reasonMax = 255;
   $("<div id='reasonCount'>" + reason.val().length + "/" + reasonMax + "</div>").insertAfter(reason);
   var reasonCount = $("#reasonCount");
 

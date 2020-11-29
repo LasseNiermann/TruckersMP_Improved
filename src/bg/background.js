@@ -122,8 +122,8 @@ function versionGt (greater, smaller) {
   greater = greater.split(".");
   smaller = smaller.split(".");
   for (var i = 0; i < Math.min(greater.length, smaller.length); i++) {
-    if (greater[i] > smaller[i]) return true;
-    else if (greater[i] < smaller[i]) return false;
+    if (parseInt(greater[i]) > parseInt(smaller[i])) return true;
+    else if (parseInt(greater[i]) < parseInt(smaller[i])) return false;
   }
   return greater.length > smaller.length;
 }

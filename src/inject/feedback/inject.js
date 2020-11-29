@@ -33,7 +33,7 @@ let inject_init = () => { // eslint-disable-line no-unused-vars
     });
 
     // Table improve
-    $('table').addClass('table-condensed table-hover');
+    $('table').addClass('table');
 
     // Comments improve
     $(".comment > p").each(function () {
@@ -65,8 +65,9 @@ let inject_init = () => { // eslint-disable-line no-unused-vars
     // Clear content
     $('button#comments_clear').on('click', function (event) {
       event.preventDefault();
-      $('form').find('textarea[name=comment]').val("");
+      if (confirm('Are you sure you want to start over?')) manipulateTextarea($('form').find('textarea[name=comment]').prop('id'), '', 'clearReason'); //$('form').find('textarea[name=comment]').val("");
     });
+    
     // Adds content by clicking a reason comment
     $('.pluscomment').on('click', function (event) {
       event.preventDefault();
@@ -74,115 +75,40 @@ let inject_init = () => { // eslint-disable-line no-unused-vars
     });
 
     // User information
-    $('body > div.wrapper > div.container.content > div > div.clearfix > div:nth-child(1) > table > tbody > tr:nth-child(1) > td:nth-child(1)').css('text-align', 'right');
+    $('body > div.wrapper > div.container.content > div > div.clearfix > div:nth-child(1) > table > tbody > tr:nth-child(1) > td:nth-child(1)');
     var userLink = $('body > div.wrapper > div.container.content > div > div.clearfix > div:nth-child(1) > table > tbody > tr:nth-child(1) > td:nth-child(2) > a');
     var userId = $(userLink).attr('href').replace('https://truckersmp.com/user/', '');
     // Adds information about the user
 
-  //   let vtcstuff = '';
-  //   let vtcnamelink = '';
-  //   $.ajax({
-  //     url: "https://api.truckersmp.com/v2/player/" + userId,
-  //     type: "GET",
-  //     success: function (tmpData) {
-  //       if(tmpData.response.vtc.inVTC == true)
-  //       {
-  //         vtcnamelink = '<p>VTC: <a href="https://truckersmp.com/vtc/' + tmpData.response.vtc.id +'" target="_blank">' + tmpData.response.vtc.name + '</a></p>';
-          
-          
-  //         let authorIsOwner = false;
-  //         let generalRequirements = 'X';
-  //         let verifiedMembers = 'X';
-  //         let validatedMembers = 'X';
-  //         $.ajax({
-  //           url: "https://api.truckersmp.com/v2/vtc/" + tmpData.response.vtc.id,
-  //           type: "GET",
-  //           success: function (vtcData) {
-  //             if(vtcData.response.owner_username == tmpData.response.name)
-  //             {
-  //               authorIsOwner = true;
-  //             }
-  //             if(vtcData.response.members_count > 49)
-  //             {
-  //               verifiedMembers = 'YES! ' + vtcData.response.members_count;
-  //             }
-  //             else if(vtcData.response.members_count > 9)
-  //             {
-  //               validatedMembers = 'YES! ' + vtcData.response.members_count;
-  //             }
-  //             if(vtcData.response.recruitment == 'Open' | )
-
-
-  //             vtcstuff = vtcnamelink + '<p>Validation: ' + validatedMembers + '</p>' + '<p>Verification: ' + verifiedMembers + '</p>';
-              
-
-  //             userLink.after(' <img src="' + tmpData.response['smallAvatar'] + '" class="img-rounded" style="width: 32px; height: 32px" />' + vtcstuff);
-  //           }
-  //         });
-
-          
-  //       }
-  //       else 
-  //       {
-  //         userLink.after(' <img src="' + tmpData.response['smallAvatar'] + '" class="img-rounded" style="width: 32px; height: 32px" />');
-  //       }
-  //       userLink.wrap('<kbd>');
-
-  //       $("#loading-spinner").hide();
-  //     },
-  //   });
-  //   // Sets the title
-  //   $(document).prop('title', userLink.text() + ' - Feedback | TruckersMP');
-  // });
-
-
   $.ajax({
-    url: "https://api.truckersmp.com/v2/player/" + userId,
+    url: userLink.attr('href'),
     type: "GET",
-    success: function (tmpData) {
-      if(tmpData.response.vtc.inVTC == true)
-      {
-        let vtcnamelink = '';
-        let vtcowner = '';
-        vtcnamelink = '<p>VTC: <a href="https://truckersmp.com/vtc/' + tmpData.response.vtc.id +'" target="_blank">' + tmpData.response.vtc.name + '</a></p>';
-        
-        
-        let authorIsOwner;
-        $.ajax({
-          url: "https://api.truckersmp.com/v2/vtc/" + tmpData.response.vtc.id,
-          type: "GET",
-          success: function (vtcData) {
-            if(vtcData.response.owner_username == tmpData.response.name)
-            {
-              authorIsOwner = true;
-            }
-            else
-            {
-              authorIsOwner = false;
-              vtcowner = '<p><b>CAUTION! This person is not the owner!</b></p>';
-            }
-            
+    success: function(data) {
+      var userAvatar = $(data).find('div.col-md-3.md-margin-bottom-40').find('a').find('img').attr('src');    
+      userLink.after(' <img src="'+userAvatar+'" class="img-rounded" style="width: 32px; height: 32px" /><span class="badge badge-u" style="margin-left: 4px;">ID ' + userId + '</span><a style="margin-left: 1px;" id="copyid"><i class="fas fa-copy fa-fw" data-toggle="tooltip" title="" data-original-title="Copy TMP ID"></i></a>');
+      
+      var userProfile = $(data).find('div.profile-bio');
+      var userRegDate = userProfile.text().substr(userProfile.text().indexOf('Member since:')).split("\n")[0].replace("Member since: ","");  
+      var userSteamId = userProfile.text().substr(userProfile.text().indexOf('Steam ID:')).split("\n")[0].replace("Steam ID: ","");  
+      $("body > div.wrapper > div.container.content > div.row > div > div.col-md-6.col-xs-12 > table > tbody > tr:nth-child(1) > td:nth-child(2)").append('<p class="mt-3"><kbd id="registerdate">Registered: '+userRegDate+'</kbd></p>').append('<tr><td><p class="mt-2">Steam ID: <a href="https://steamcommunity.com/profiles/'+userSteamId+'" target="_blank" rel="noreferrer">'+userSteamId+'</a><p></td></tr>');
 
-            userLink.after(' <img src="' + tmpData.response['smallAvatar'] + '" class="img-rounded" style="width: 32px; height: 32px" />' + vtcnamelink + vtcowner);
-          }
-        });
-
-        
-      }
-      else 
-      {
-        userLink.after(' <img src="' + tmpData.response['smallAvatar'] + '" class="img-rounded" style="width: 32px; height: 32px" />');
-      }
-      //userLink.wrap('<kbd>');
-
+      $('#copyid').on('click', function (event) {
+        event.preventDefault()
+        copyToClipboard(userId)
+        $(this).children().first().removeClass("fa-copy").addClass("fa-check");
+        setTimeout(() => {
+          $(this).children().first().removeClass("fa-check").addClass("fa-copy");
+        },2000);
+      })
       $("#loading-spinner").hide();
-    },
+    }
   });
+
   // Sets the title
   $(document).prop('title', userLink.text() + ' - Feedback | TruckersMP');
-});
 
-  
+  injectScript(chrome.extension.getURL('src/editor.js'), 'body');
+});
 
   /*function copyToClipboard(text) {
     const input = document.createElement('input');
@@ -197,8 +123,8 @@ let inject_init = () => { // eslint-disable-line no-unused-vars
 
   function addButtons(textArea, html) {
     if (typeof textArea !== 'undefined' && html.length > 0) {
-      $(textArea).css('margin-bottom', '10px');
-      $(html).insertAfter(textArea);
+      //$(textArea).css('margin-bottom', '10px')
+      $(html).insertAfter(textArea.next().hasClass('EasyMDEContainer') ? textArea.next() : textArea)
     }
   }
 
@@ -207,7 +133,8 @@ let inject_init = () => { // eslint-disable-line no-unused-vars
     var html = '';
     switch (type) {
       case "feedbackComments":
-        html += each_type_new('Feedback comments', OwnReasons.feedbackComments);
+        if (OwnReasons.feedbackComments.length > 0 && Object.keys(OwnReasons.feedbackComments[0]).length !== 0) html += each_type_new('Feedback comments', OwnReasons.feedbackComments) + ' ';
+        if (OwnReasons.all.length > 0 && Object.keys(OwnReasons.all[0]).length !== 0) html += each_type_new('Global', OwnReasons.all) + ' ';
         html += '<button type="button" class="btn btn-link" id="comments_clear">Clear</button>';
         break;
     }
@@ -220,6 +147,13 @@ let inject_init = () => { // eslint-disable-line no-unused-vars
         case 'Feedback comments':
           place = 'after';
           color = 'u';
+          change = 'comment';
+          action = '';
+          break;
+
+        case 'Global':
+          place = 'after';
+          color = 'dark';
           change = 'comment';
           action = '';
           break;
@@ -246,16 +180,65 @@ let inject_init = () => { // eslint-disable-line no-unused-vars
   }
 
   // Adding comment
-  var lastinsertpos;
+  function manipulateTextarea (reason_id, reason_val, funct) {
+    window.postMessage({ type: 'content_script_type', funct: funct, reason_id: reason_id, reason_val: reason_val }, '*' /* targetOrigin: any */ );
+  }
 
   function setReason(reason, reason_val) {
-    if ($(reason).val() == "") {
-      $(reason).val(reason_val);
-    } else {
-      var pos = $(reason).prop('selectionStart');
-      $(reason)[0].setRangeText((lastinsertpos === pos ? "\n\n" : "") + reason_val, pos, pos, 'end');
-      lastinsertpos = $(reason).prop('selectionStart');
-    }
-    $(reason).focus();
+    reason_val = updateMessageWithCannedVariables(reason_val);
+    manipulateTextarea($(reason).prop('id'), reason_val, 'addReason');
+  }
+
+  // ===== Replace status text with a badge =====
+  if (settings.colouredstatus === true) {
+    $(function () {
+      $("body > div.wrapper > div.container.content > div.row > div > div.col-md-6.col-xs-12 > table > tbody > tr:nth-child(5) > td:nth-child(2)").prop('class', 'feedback_status');
+      $("#feedback > div > table > tbody > tr:nth-child(n) > td:nth-child(2)").prop('class', 'feedback_status');
+
+      $('.feedback_status').each(function() {
+        var status = $(this).text().trim();
+        
+        if (status === "New") {
+          $(this).html('<span class="label" style="background-color: #3498DB">'+status+'</span>');
+        }
+        else if (status === "Finished") {
+          $(this).html('<span class="label" style="background-color: #00B800">'+status+'</span>');
+        }
+        else if (status === "Closed") {
+          $(this).html('<span class="label" style="background-color: #3E1278">'+status+'</span>');
+        }
+        else if (status === "Under Investigation" || status === "Under_investigation") {
+          $(this).html('<span class="label" style="background-color: #ff0000">'+status+'</span>');
+        }
+        else {
+          $(this).html('<span class="label" style="background-color: #555555">'+status+'</span>');
+        }
+      });
+
+      $("#report > div > table > tbody > tr:nth-child(n) > td:nth-child(3)").prop('class', 'report_status');
+
+      $('.report_status').each(function() {
+        var status = $(this).text().trim();
+        
+        if (status === "New") {
+          $(this).html('<span class="label" style="background-color: #3498DB">'+status+'</span>');
+        }
+        else if (status === "Accepted") {
+          $(this).html('<span class="label" style="background-color: #03B500">'+status+'</span>');
+        }
+        else if (status === "Declined") {
+          $(this).html('<span class="label" style="background-color: #FF0000">'+status+'</span>');
+        }
+        else if (status === "Waiting for admin") {
+          $(this).html('<span class="label" style="background-color: #E8A600">'+status+'</span>');
+        }
+        else if (status === "Waiting for player") {
+          $(this).html('<span class="label" style="background-color: #3E1278">'+status+'</span>');
+        }
+        else {
+          $(this).html('<span class="label" style="background-color: #555555">'+status+'</span>');
+        }
+      });
+    });
   }
 }

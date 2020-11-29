@@ -68,7 +68,7 @@ let inject_init = () => { // eslint-disable-line no-unused-vars
     if (settings.viewfeedbackblank) {
       $(this).attr('target', '_blank')
       $('.claim').tooltip({
-        title: 'Press Ctrl to open report in the same tab'
+        title: 'Press Ctrl to open feedback ticket in the same tab'
       })
     }
   })
@@ -76,10 +76,10 @@ let inject_init = () => { // eslint-disable-line no-unused-vars
   $('table.table > tbody > tr > td:nth-child(9) > a').each(function () {
     $(this).addClass('btn btn-primary btn-block btn-sm claim')
 
-    var text = $(this).text().replace(' report', '').trim()
+    var text = $(this).text().replace(' Feedback', '').trim()
 
     if (text == 'Claim') {
-      $(this).html(text + ' <i class="fas fa-external-link-alt"></i>')
+      $(this).html(text + ' <i class=\"fas fa-external-link-alt\"></i>');
       if (settings.viewfeedbackblank) {
         $(this).attr('target', '_blank')
       }
@@ -189,7 +189,7 @@ let inject_init = () => { // eslint-disable-line no-unused-vars
     $('[data-toggle="tooltip"]').tooltip()
     if (settings.viewfeedbackblank) {
       $('.claim').tooltip({
-        title: 'Press Ctrl to open report in the same tab'
+        title: 'Press Ctrl to open feedback ticket in the same tab'
       })
     }
 
@@ -200,4 +200,31 @@ let inject_init = () => { // eslint-disable-line no-unused-vars
     $(document).prop('title', 'Page ' + page + ' - Feedbacks | TruckersMP')
     $('#loading-spinner').hide()
   })
+
+  // ===== Replace status text with a badge =====
+  if (settings.colouredstatus === true) {
+    $(function () {
+      $("#DataTables_Table_0 > tbody > tr:nth-child(n) > td:nth-child(5)").prop('class', 'feedback_status');
+
+      $('.feedback_status').each(function() {
+        var status = $(this).text().trim();
+        
+        if (status === "New") {
+          $(this).html('<span class="label" style="background-color: #3498DB">'+status+'</span>');
+        }
+        else if (status === "Finished") {
+          $(this).html('<span class="label" style="background-color: #00B800">'+status+'</span>');
+        }
+        else if (status === "Closed") {
+          $(this).html('<span class="label" style="background-color: #3E1278">'+status+'</span>');
+        }
+        else if (status === "Under Investigation") {
+          $(this).html('<span class="label" style="background-color: #ff0000">'+status+'</span>');
+        }
+        else {
+          $(this).html('<span class="label" style="background-color: #555555">'+status+'</span>');
+        }
+      });
+    });
+  }
 }

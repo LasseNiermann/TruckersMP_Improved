@@ -190,4 +190,34 @@ let inject_init = () => { // eslint-disable-line no-unused-vars
     // $(document).prop('title', 'Page ' + page + ' - Reports | TruckersMP');
     $("#loading-spinner").hide();
   });
+
+  // ===== Replace status text with a badge =====
+  if (settings.colouredstatus === true) {
+    $(function () {
+      $('#DataTables_Table_0 > tbody > tr:nth-child(n) > td:nth-child(7)').prop('class', 'report_status');
+
+      $('.report_status').each(function() {
+        var status = $(this).text().trim();
+        
+        if (status === "New") {
+          $(this).html('<span class="label" style="background-color: #3498DB">'+status+'</span>');
+        }
+        else if (status === "Accepted") {
+          $(this).html('<span class="label" style="background-color: #03B500">'+status+'</span>');
+        }
+        else if (status === "Declined") {
+          $(this).html('<span class="label" style="background-color: #FF0000">'+status+'</span>');
+        }
+        else if (status === "Waiting for admin") {
+          $(this).html('<span class="label" style="background-color: #E8A600">'+status+'</span>');
+        }
+        else if (status === "Waiting for player") {
+          $(this).html('<span class="label" style="background-color: #3E1278">'+status+'</span>');
+        }
+        else {
+          $(this).html('<span class="label" style="background-color: #555555">'+status+'</span>');
+        }
+      });
+    });
+  }
 }

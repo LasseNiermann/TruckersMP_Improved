@@ -35,7 +35,7 @@
             href="https://github.com/dequeues" target="_blank" rel="noreferrer nofollow noopener">Nathan</a>
           <br>
           Now maintained by
-          <a href="https://github.com/Flybel" target="_blank" rel="noreferrer nofollow noopener">Flybel</a>
+          <a href="https://github.com/KidFabi" target="_blank" rel="noreferrer nofollow noopener">KidFabi</a>
           <br>
           <small>
             Huge thanks to
@@ -45,14 +45,15 @@
             <a href="https://github.com/CaptainKostaZ" target="_blank" rel="noreferrer nofollow noopener">CaptainKostaZ</a>,
             <a href="https://github.com/jean8mathieu" target="_blank" rel="noreferrer nofollow noopener">J-M</a>,
             <a href="https://github.com/LasseNiermann" target="_blank" rel="noreferrer nofollow noopener">Lasse</a>,
-            <a href="https://github.com/mrnat7471" target="_blank" rel="noreferrer nofollow noopener">Nathan7471</a>.
+            <a href="https://github.com/mrnat7471" target="_blank" rel="noreferrer nofollow noopener">Nathan7471</a>,
+            <a href="https://github.com/Flybel" target="_blank" rel="noreferrer nofollow noopener">Flybel</a>.
           </small>
         </p>
 
         <p>
           <strong>Any issues? Ideas? Suggestions?
             <a href="https://forum.truckersmp.com/index.php?/topic/99421-truckersmp-improved-lives/" class="btn"
-              target="_blank" rel="noreferrer nofollow noopener">let me know!</a>
+              target="_blank" rel="noreferrer nofollow noopener">let us know!</a>
           </strong>
         </p>
       </div>
@@ -62,6 +63,86 @@
       <div class="col">
         <h3 class="text-center">Changelog</h3>
         <ul class="disc changelog">
+          <h5>1.16.5</h5>
+          <li>Fixed a bug where coloured status wasn't displayed properly when a report was accepted or declined [Kid Fabi]</li>
+          <li>Fixed a bug where coloured status wasn't displayed upon claiming a report (EPS!LON) [Kid Fabi]</li>
+          <li>Added ban length calculations to Search Bans and Latest Bans pages (BL4CK$K1LL) [Kid Fabi]</li>
+          <li>Added option to hide Website/In-game bans on Search Bans page [Kid Fabi]</li>
+          <li>Added user's register date and Steam ID to feedback tickets [Kid Fabi]</li>
+          <li>Removed Pop-Up scrollbars in Firefox (Raeker) [Kid Fabi]</li>
+          <li>Removed VTC Ownership from feedback tickets [Kid Fabi]</li>
+          <li>General code improvements [Kid Fabi]</li>
+          <li>Added a Chinese message to the localised report comments (Soul Knight)</li>
+          <li>Reimplemented the ban history table improvement in reports, now including ban lengths (only when the wide page setting is enabled) [Flybel]</li>
+          <li>Added current and former usernames of the perpetrator to video modals [Flybel]</li>
+          <li>Implemented lookups of PlayerID and TMPID to verify evidence age or find the correct ID in reports [Flybel]</li>
+          <li>Made finding TMPID of the perpetrator more robust, disabled some features for reports against deleted users for stability & performance [Flybel]</li>
+
+          <h5>1.16.4</h5>
+          <li><strong>Localised report comments are back! Huge thanks to the Translation Team and everyone else who was involved!</strong></li>
+          <li>
+            Improvements to the extension Pop-Up [Kid Fabi]:
+            <ul>
+              <li>Moved style code block to a separate CSS file</li>
+              <li>Added categories to the links</li>
+              <li>Added links to report activity, ban activity and changelog.</li>
+              <li>General improvements</li>
+            </ul>
+          </li>
+          <li>Added sorting to Ban Activity page [Kid Fabi]</li>
+          <li>Added option to replace a report / feedback status text with a coloured badge. Enabled by default, can be disabled in settings [Kid Fabi]</li>
+          <li>Fixed a bug where user's nickname wasn't displayed properly in feedback tickets [Kid Fabi]</li>
+          <li>General improvements and bug fixes to feedback table and tickets [Kid Fabi]</li>
+          <li>Fixed multiple issues with ban length calculations and dealing with timezones [Flybel]</li>
+          <li>
+            Improvements to Comment buttons and their settings [Flybel]:
+            <ul>
+              <li>Fixed "Create Section" button in the settings always creating sections with a single column</li>
+              <li>Buttons for inserting comments will no longer display when their category is empty. The Clear-button and Ban Reason buttons will still be shown</li>
+              <li>Added new categories for comments: Report Accept, Report Global, Appeals Global, Global (Miyu)
+                <br><em>The new categories will not show until you put text in them. They should give you maximum possibilities for customisation without cluttering your screen</em>
+              </li>
+            </ul>
+          </li>
+          <li>Added %admin.group.name% to appeals (JamesS014) [Flybel]</li>
+          <li>Profile ban length will now say (1 day) instead of (1 days) (Krewlex) [Flybel]</li>
+
+          <h5>1.16.3</h5>
+          <li>Fixed ban length calculations for Trainees (Coolio85)</li>
+          <li>Added support for the new editor in reports, appeals, feedback</li>
+          <li>Automatic updates on Firefox</li>
+          
+          <h5>1.16.2</h5>
+          <li>Fixed ban length calculations and the next ban button (this should no longer break)</li>
+          <li>Added a ban length display to each ban in profiles</li>
+          
+          <h5>1.16.1</h5>
+          <li>Multiple fixes for the TMP ID display in feedback tickets</li>
+          <li>Added a confirmation prompt to the Clear comment button (Miyu)</li>
+          <li>(Senior) Game Managers are now called (Senior) Game Moderation Managers in canned variables of reports</li>
+          <li>Ban length calculations are now more precise in differentiating between 28-30 day bans and 1 month history bans</li>
+          <li>Non-YouTube video embeds should work in appeals now (novice)</li>
+          <li>Added copy buttons to appeals (weezy, Gamer5)</li>
+          <li>Fixed the position of the Next ban button on VTC/awarded player profiles (El Reja)</li>
+          <li>Updated the default settings to more contemporary values for new staff</li>
+          <li>Replaced old language-specific report accept comments with official comments, more languages coming very soon:tm:</li>
+          <li>Fixed overzealous copy buttons (a staff member)</li>
+          
+          <h5>1.16</h5>
+          <li>Optimised ban reason insertion in reports and when editing bans</li>
+          <li>The canned variables implementation in reports is now more robust</li>
+          <li>Restructuring the way ajax requests are made and reduced the need to do so</li>
+          <li>Restored the "enable ban length" setting</li>
+          <li>Fixed an error in the ban length calculation logic and functionality on users in a VTC</li>
+          <li>Attempt to prevent the browser showing AutoFill suggestions for the ban reason</li>
+          <li>Fixed canned variables in appeals and errors with deleted users</li>
+          <li>Fixed the version difference calculation which would cause update notifications to not show up</li>
+          <li>Updated the ban reason maximum length in accordance with the new website update</li>
+          <li>Updated link icons in the popup menu (Lasse)</li>
+          <li>Added copy buttons to reporter and admin IDs</li>
+          <li>Added TMP ID to feedback tickets</li>
+          <li>Experimental Firefox support!</li>
+          
           <h5>1.15.10</h5>
           <li>Fixed issues that I introduced with canned messages</li>
           <li>The occurred date in reports is now colorised to indicate whether the situation is too old to ban for</li>

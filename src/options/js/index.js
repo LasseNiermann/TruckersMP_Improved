@@ -11,6 +11,7 @@ let inject_init = () => { // eslint-disable-line no-unused-vars
         local_storage: $('#local_storage').is(':checked'),
         img_previews: $('#img_previews').is(':checked'),
         wide: $('#wide').is(':checked'),
+        colouredstatus: $('#colouredstatus').is(':checked'),
         separator: $('#separator').val(),
         own_comment: $('#own_comment').val().trim(),
         autoinsertsep: $('#autoinsertsep').is(':checked'),
@@ -28,15 +29,19 @@ let inject_init = () => { // eslint-disable-line no-unused-vars
         prefixes: getReasons("prefixes"),
         reasons: getReasons("reasons"),
         postfixes: getReasons("postfixes"),
+        accepts: getReasons("accepts"),
         declines: getReasons("declines"),
         declinesPositive: getReasons("declinesPositive"),
         declinesNegative: getReasons("declinesNegative"),
         comments: getReasons("comments"),
+        reportsall: getReasons("reportsall"),
         declinesAppeals: getReasons("declinesAppeals"),
         commentsAppeals: getReasons("commentsAppeals"),
         acceptsAppeals: getReasons("acceptsAppeals"),
         modifyAppeals: getReasons("modifyAppeals"),
-        feedbackComments: getReasons("feedbackComments")
+        appealsall: getReasons("appealsall"),
+        feedbackComments: getReasons("feedbackComments"),
+        all: getReasons("all")
       };
 
       data.OwnDates = {
@@ -151,6 +156,12 @@ let inject_init = () => { // eslint-disable-line no-unused-vars
           });
         });
 
+        items.OwnReasons.accepts.forEach(function (val) {
+          var parent = createSection($('#accepts'), 2);
+          $.each(val, function (key, text) {
+            createField(parent, key, text);
+          });
+        });
         items.OwnReasons.declines.forEach(function (val) {
           var parent = createSection($('#declines'), 2);
           $.each(val, function (key, text) {
@@ -171,6 +182,12 @@ let inject_init = () => { // eslint-disable-line no-unused-vars
         });
         items.OwnReasons.comments.forEach(function (val) {
           var parent = createSection($('#comments'), 2);
+          $.each(val, function (key, text) {
+            createField(parent, key, text);
+          });
+        });
+        items.OwnReasons.reportsall.forEach(function (val) {
+          var parent = createSection($('#reportsall'), 2);
           $.each(val, function (key, text) {
             createField(parent, key, text);
           });
@@ -200,8 +217,22 @@ let inject_init = () => { // eslint-disable-line no-unused-vars
             createField(parent, key, text);
           });
         });
+        items.OwnReasons.appealsall.forEach(function (val) {
+          var parent = createSection($('#appealsall'), 2);
+          $.each(val, function (key, text) {
+            createField(parent, key, text);
+          });
+        });
+
         items.OwnReasons.feedbackComments.forEach(function (val) {
           var parent = createSection($('#feedbackComments'), 2);
+          $.each(val, function (key, text) {
+            createField(parent, key, text);
+          });
+        });
+
+        items.OwnReasons.all.forEach(function (val) {
+          var parent = createSection($('#all'), 2);
           $.each(val, function (key, text) {
             createField(parent, key, text);
           });
@@ -224,6 +255,7 @@ let inject_init = () => { // eslint-disable-line no-unused-vars
 
         $('#img_previews').prop("checked", items.settings.img_previews);
         $('#wide').prop("checked", items.settings.wide);
+        $('#colouredstatus').prop("checked", items.settings.colouredstatus);
         $('#autoinsertsep').prop("checked", items.settings.autoinsertsep);
         $('#localisedcomment').prop("checked", items.settings.localisedcomment);
         $('#enablelinknotifications').prop("checked", items.settings.enablelinknotifications);
