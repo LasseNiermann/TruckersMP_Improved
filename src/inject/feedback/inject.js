@@ -90,11 +90,19 @@ let inject_init = () => { // eslint-disable-line no-unused-vars
       var userProfile = $(data).find('div.profile-bio');
       var userRegDate = userProfile.text().substr(userProfile.text().indexOf('Member since:')).split("\n")[0].replace("Member since: ","");  
       var userSteamId = userProfile.text().substr(userProfile.text().indexOf('Steam ID:')).split("\n")[0].replace("Steam ID: ","");  
-      $("body > div.wrapper > div.container.content > div.row > div > div.col-md-6.col-xs-12 > table > tbody > tr:nth-child(1) > td:nth-child(2)").append('<p class="mt-3"><kbd id="registerdate">Registered: '+userRegDate+'</kbd></p>').append('<tr><td><p class="mt-2">Steam ID: <a href="https://steamcommunity.com/profiles/'+userSteamId+'" target="_blank" rel="noreferrer">'+userSteamId+'</a><p></td></tr>');
+      $("body > div.wrapper > div.container.content > div.row > div > div.col-md-6.col-xs-12 > table > tbody > tr:nth-child(1) > td:nth-child(2)").append('<p class="mt-3"><kbd id="registerdate">Registered: '+userRegDate+'</kbd></p>').append('<tr><td><p class="mt-2">Steam ID: <a href="https://steamcommunity.com/profiles/'+userSteamId+'" target="_blank" rel="noreferrer">'+userSteamId+'</a><a id="copysteamid"><i class="fas fa-copy fa-fw" data-toggle="tooltip" title="" data-original-title="Copy SteamID" style="margin-left: 1px;"></i></a></td></tr>');
 
       $('#copyid').on('click', function (event) {
         event.preventDefault()
         copyToClipboard(userId)
+        $(this).children().first().removeClass("fa-copy").addClass("fa-check");
+        setTimeout(() => {
+          $(this).children().first().removeClass("fa-check").addClass("fa-copy");
+        },2000);
+      })
+      $('#copysteamid').on('click', function (event) {
+        event.preventDefault()
+        copyToClipboard(userSteamId)
         $(this).children().first().removeClass("fa-copy").addClass("fa-check");
         setTimeout(() => {
           $(this).children().first().removeClass("fa-check").addClass("fa-copy");
